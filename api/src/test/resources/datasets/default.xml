@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<dataset>
+    <PROJECTS id="1234" title="Project P1"/>
+    <PROJECTS id="1235" title="Project F2"/>
+    <PROJECTS id="1236" title="Internal project IP3"/>
+    <PROJECTS id="1237" title="Customer project CP4"/>
+
+    <!-- Steps pour le projet 1234 -->
+    <KANBAN_STEPS id="10" title="DEVELOP" STEP_ORDER="2" PROJECT_ID="1234"/> <!-- L'ordre de ce step est supérieur à l'ordre du step 11 -->
+    <KANBAN_STEPS id="11" title="TODO" STEP_ORDER="1" PROJECT_ID="1234"/>
+    <KANBAN_STEPS id="12" title="VALIDATION" STEP_ORDER="3" PROJECT_ID="1234"/>
+    <KANBAN_STEPS id="13" title="DONE" STEP_ORDER="4" PROJECT_ID="1234"/>
+
+    <!-- Steps pour le projet 1235 -->
+    <KANBAN_STEPS id="20" title="DEVELOP" STEP_ORDER="2" PROJECT_ID="1235"/><!-- L'ordre de ce step est supérieur à l'ordre du step 21 -->
+    <KANBAN_STEPS id="21" title="TODO" STEP_ORDER="1" PROJECT_ID="1235"/>
+    <KANBAN_STEPS id="22" title="DONE" STEP_ORDER="3" PROJECT_ID="1235"/>
+
+    <!-- Story pour le projet 1234 -->
+    <STORIES id="100" title="Get things done" description="Better start now" project_id="1234" step_id="10" />
+    <STORIES id="101" title="An awesome feature" description="As a user, \nI can use this awesome feature" project_id="1234" step_id="11" />
+    <STORIES id="102" title="A nice feature" description="As a user, \nI can use this rather nice feature" project_id="1234" step_id="11" />
+    <STORIES id="103" title="A completed feature" description="Wahou this feature is completed" project_id="1234" step_id="13" />
+
+    <!-- Story pour le projet 1235 -->
+    <STORIES id="200" title="Todo feature" description="Better start now" project_id="1235" step_id="20" />
+    <STORIES id="201" title="Awesome feature ++" description="As a user, \nI can use this awesome feature" project_id="1235" step_id="21" />
+    <STORIES id="202" title="Done feature" description="Wahou this feature is completed" project_id="1235" step_id="22" />
+</dataset>

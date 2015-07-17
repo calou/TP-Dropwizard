@@ -1,0 +1,15 @@
+
+database:
+  driverClass: org.h2.Driver
+  user: sa
+  password:
+  url: jdbc:h2:file:./target/kanban_test
+  minSize: 8
+  maxSize: 32
+
+
+server:
+  rootPath: '/api/*'
+  applicationConnectors:
+    - type: http
+      port: 8080
