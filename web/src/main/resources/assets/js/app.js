@@ -2,14 +2,16 @@ var kanbanApp = angular.module('kanbanApp', ['ngResource', 'ngRoute']);
 
 kanbanApp.factory('Project', ['$resource',
     function($resource){
-            return $resource('/api/projects/:projectId', {projectId:'@id'}
+            return $resource('/api/projects/:projectId', {projectId:'@id'},
+                {'update': { method:'PUT' }}
         );
     }
 ]);
 
 kanbanApp.factory('Story', ['$resource',
     function($resource){
-            return $resource('/api/stories/:storyId', {storyId:'@id'}
+            return $resource('/api/stories/:storyId', {storyId:'@id'},
+                {'update': { method:'PUT' }}
         );
     }
 ]);
@@ -56,7 +58,38 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
                 $scope.title = '';
                 $scope.description = '';
             });
+        }
+    };
+    $scope.move = function(s){
+        var nextStep;
+        var storyStep = s.step;
 
+        if(storyStep == undefined){
+            nextStep = $scope.project.steps[0];
+        }else{
+            // On détermine le premier step dont l'ordre est supérieur à storyStep
+            for(var i in $scope.project.steps){
+                var si = $scope.project.steps[i];
+
+                // Si l'ordre du step n'est pas définie...
+                if(storyStep.order == undefined && storyStep.id == si.id){
+                    storyStep.order = si.order;
+                }
+                // On choisit le premier step dont l'ordre est plus grand que
+                // celui du step courant.
+                if(storyStep.order < si.order){
+                    nextStep = si;
+                    break;
+                }
+            }
+        }
+
+        if(nextStep != undefined && nextStep != storyStep){
+            var story = new Story(s);
+            story.step = nextStep;
+            story.$update().then(function(){
+                s.step = nextStep;
+            });
         }
     };
 });

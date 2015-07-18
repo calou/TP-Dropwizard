@@ -15,10 +15,21 @@
     margin: 5px -10px;
     height: 120px;
     border-radius: 2px;
+    cursor:pointer;
 }
 .red {
     color: #CC0000;
 }
 .green {
     color: #1fa67a;
+}
+
+.step .panel {
+    min-height: 500px;
+}
+.step .panel .panel-body {
+    overflow-y: auto;
+}
+.step .panel .panel-heading {
+    color: #333333;
 }

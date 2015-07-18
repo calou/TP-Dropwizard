@@ -1,16 +1,16 @@
 <h1>Projet "{{project.title}}"</h1>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 step">
         <div class="panel panel-warning">
             <div class="panel-heading">
-                Backlog
+                BACKLOG
                 <a class="fa fa-plus-square pull-right green" data-toggle="modal" data-target="#myModal"></a>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div ng-repeat="story in project.stories | filter: {step: null}" class="ng-cloak col-md-6">
-                        <div class="post-it">
+                        <div class="post-it" ng-dblclick="move(story)">
                             {{story.title}}
                         </div>
                     </div>
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>
-    <div ng-repeat="project_step in project.steps" class="ng-cloak col-md-3">
+    <div ng-repeat="project_step in project.steps" class="ng-cloak col-md-3 step">
         <div class="panel panel-info">
             <div class="panel-heading">
                 {{project_step.title}}
@@ -26,7 +26,7 @@
             <div class="panel-body">
                 <div class="row">
                     <div ng-repeat="story in project.stories | filter: {step: {id: project_step.id}}" class="ng-cloak col-md-6">
-                        <div class="post-it">
+                        <div class="post-it" ng-dblclick="move(story)">
                             {{story.title}}
                         </div>
                     </div>
@@ -36,11 +36,7 @@
         </div>
     </div>
 </div>
-<div class="row">
-
-</div>
 <a href="/#/projects" class="btn btn-danger">Retour</a>
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
