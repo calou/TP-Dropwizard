@@ -1,27 +1,15 @@
 <h1>Projet "{{project.title}}"</h1>
 
 <div class="row">
-    <div ng-repeat="step in project.steps" class="ng-cloak col-md-4">
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                {{step.title}}
-            </div>
-            <div class="panel-body">
-                toto
-            </div>
-
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
         <div class="panel panel-warning">
             <div class="panel-heading">
                 Backlog
+                <a class="fa fa-plus-square pull-right green" data-toggle="modal" data-target="#myModal"></a>
             </div>
             <div class="panel-body">
-                <div class="row col-md-12">
-                    <div ng-repeat="story in project.stories" class="ng-cloak col-md-4">
+                <div class="row">
+                    <div ng-repeat="story in project.stories | filter: {step: null}" class="ng-cloak col-md-6">
                         <div class="post-it">
                             {{story.title}}
                         </div>
@@ -30,10 +18,38 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-danger">
-            <div class="panel-heading">Nouvelle story</div>
+    <div ng-repeat="project_step in project.steps" class="ng-cloak col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                {{project_step.title}}
+            </div>
             <div class="panel-body">
+                <div class="row">
+                    <div ng-repeat="story in project.stories | filter: {step: {id: project_step.id}}" class="ng-cloak col-md-6">
+                        <div class="post-it">
+                            {{story.title}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+
+</div>
+<a href="/#/projects" class="btn btn-danger">Retour</a>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nouvelle story</h4>
+            </div>
+            <div class="modal-body">
                 <div class="form-group">
                     <label for="title">Titre</label>
                     <input id="title" type="text" ng-model="title" class="form-control" placeholder="Titre"/>
@@ -43,9 +59,14 @@
                         <textarea id="description" ng-model="description" class="form-control"
                                   placeholder="Description"></textarea>
                 </div>
-                <a ng-click="createStory()" class="btn btn-default">Enregistrer</a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                <button type="button" ng-click="createStory()" class="btn btn-primary">Enregistrer</button>
             </div>
         </div>
     </div>
 </div>
-<a href="/#/projects" class="btn btn-danger">Retour</a>
+
+
+

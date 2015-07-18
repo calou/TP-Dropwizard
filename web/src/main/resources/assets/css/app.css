@@ -1,11 +1,24 @@
-.panel-heading a.glyphicon.glyphicon-remove-circle {
+.panel-heading a.fa {
     font-size: 21px;
+    text-decoration: none;
+    cursor: pointer;
+}
+.panel-heading a.fa:hover {
+    color:#FFFFFF;
 }
 
 .post-it {
-    background: #5F5F5F;
-    color: #FFFFFF;
+    background: #E9E74A;
+    color: #333333;
     font-size: 14px;
     padding: 15px 20px;
-    margin: 5px 0;
+    margin: 5px -10px;
+    height: 120px;
+    border-radius: 2px;
+}
+.red {
+    color: #CC0000;
+}
+.green {
+    color: #1fa67a;
 }
