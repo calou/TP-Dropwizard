@@ -18,13 +18,13 @@
     <STEPS id="22" title="DONE" STEP_ORDER="3" PROJECT_ID="1235"/>
 
     <!-- Story pour le projet 1234 -->
-    <STORIES id="100" title="Get things done" number="1" priority="1" description="Better start now" project_id="1234" step_id="10" />
-    <STORIES id="101" title="An awesome feature" number="2" priority="3" description="As a user, \nI can use this awesome feature" project_id="1234" step_id="11" />
-    <STORIES id="102" title="A nice feature" number="3" priority="2" description="As a user, \nI can use this rather nice feature" project_id="1234" step_id="11" />
-    <STORIES id="103" title="A completed feature" number="4" priority="1" description="Wahou this feature is completed" project_id="1234" step_id="13" />
+    <STORIES id="100" title="Get things done" number="1" priority="1" description="Better start now" project_id="1234" step_id="10"  bg_color="#FFFFFF" fg_color="#000000"/>
+    <STORIES id="101" title="An awesome feature" number="2" priority="3" description="As a user, \nI can use this awesome feature" project_id="1234" step_id="11"  bg_color="#FFFFFF" fg_color="#000000"/>
+    <STORIES id="102" title="A nice feature" number="3" priority="2" description="As a user, \nI can use this rather nice feature" project_id="1234" step_id="11"  bg_color="#FFFFFF" fg_color="#000000"/>
+    <STORIES id="103" title="A completed feature" number="4" priority="1" description="Wahou this feature is completed" project_id="1234" step_id="13"  bg_color="#FFFFFF" fg_color="#000000"/>
 
     <!-- Story pour le projet 1235 -->
-    <STORIES id="200" title="Todo feature" number="1" priority="1" description="Better start now" project_id="1235" step_id="20" />
-    <STORIES id="201" title="Awesome feature ++" number="2" priority="1" description="As a user, \nI can use this awesome feature" project_id="1235" step_id="21" />
-    <STORIES id="202" title="Done feature" number="3" priority="1" description="Wahou this feature is completed" project_id="1235" step_id="22" />
+    <STORIES id="200" title="Todo feature" number="1" priority="1" description="Better start now" project_id="1235" step_id="20"  bg_color="#FFFFFF" fg_color="#000000"/>
+    <STORIES id="201" title="Awesome feature ++" number="2" priority="1" description="As a user, \nI can use this awesome feature" project_id="1235" step_id="21"  bg_color="#FFFFFF" fg_color="#000000"/>
+    <STORIES id="202" title="Done feature" number="3" priority="1" description="Wahou this feature is completed" project_id="1235" step_id="22"  bg_color="#FFFFFF" fg_color="#000000"/>
 </dataset>

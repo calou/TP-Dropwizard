@@ -9,8 +9,9 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div ng-repeat="story in project.stories | filter: {step: null}" class="ng-cloak col-md-6">
-                        <div class="post-it" ng-dblclick="move(story)">
+                    <div ng-repeat="story in project.stories | filter: {step: null} | orderBy:['priority','number']"
+                         class="ng-cloak col-md-6">
+                        <div class="post-it" ng-dblclick="move(story)" style="color:{{story.fgColor}};background-color:{{story.bgColor}};">
                             <b>#{{story.number}}</b>{{story.title}}
                         </div>
                     </div>
@@ -18,15 +19,16 @@
             </div>
         </div>
     </div>
-    <div ng-repeat="project_step in project.steps" class="ng-cloak col-md-3 step">
+    <div ng-repeat="project_step in project.steps" class="col-md-3 step">
         <div class="panel panel-info">
             <div class="panel-heading">
                 {{project_step.title}}
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div ng-repeat="story in project.stories | filter: {step: {id: project_step.id}}" class="ng-cloak col-md-6">
-                        <div class="post-it" ng-dblclick="move(story)">
+                    <div ng-repeat="story in project.stories | filter: {step: {id: project_step.id}} | orderBy:['priority','number']"
+                         class="ng-cloak col-md-6">
+                        <div class="post-it" ng-dblclick="move(story)" style="color:{{story.fgColor}};background-color:{{story.bgColor}};">
                             <b>#{{story.number}}</b>{{story.title}}
                         </div>
                     </div>
@@ -42,7 +44,8 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Nouvelle story</h4>
             </div>
             <div class="modal-body">
@@ -54,6 +57,34 @@
                     <label for="description">Description</label>
                         <textarea id="description" ng-model="description" class="form-control"
                                   placeholder="Description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priorité</label>
+                    <select id="priority" ng-model="priority" class="form-control">
+                        <option value="1">Haute</option>
+                        <option value="2">Moyenne</option>
+                        <option value="3">Faible</option>
+                    </select>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="bgColor">Background</label>
+                        <select id="bgColor" ng-model="bgColor" class="form-control">
+                            <option value="#36A9CE">Bleu</option>
+                            <option value="#AE86BC">Mauve</option>
+                            <option value="#E9E74A">Jaune</option>
+                            <option value="#ED839D">Rose</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fgColor">Foreground</label>
+                        <select id="fgColor" ng-model="fgColor" class="form-control">
+                            <option value="#EFEFEF">Blanc</option>
+                            <option value="#333333">Noir</option>
+                            <option value="#148648">Vert</option>
+                            <option value="#405362">Gris bleu</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

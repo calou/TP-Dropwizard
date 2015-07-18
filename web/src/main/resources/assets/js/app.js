@@ -45,18 +45,26 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
     $scope.projectId = $routeParams.projectId;
     $scope.project = Project.get({projectId:$scope.projectId});
 
-    $scope.title = '';
-    $scope.description = '';
+    function resetNewForm(){
+        $scope.title = '';
+        $scope.description = '';
+        $scope.priority = 2;
+        $scope.bgColor="#E9E74A";
+        $scope.fgColor="#CCCCCC";
+    }
+    resetNewForm();
     $scope.createStory = function(){
         if(true){
             var story = new Story();
             story.title = $scope.title;
             story.project = {id: $scope.projectId};
             story.description = $scope.description;
+            story.priority = $scope.priority;
+            story.bgColor = $scope.bgColor;
+            story.fgColor = $scope.fgColor;
             story.$save().then(function(res)  {
                 $scope.project = Project.get({projectId:$scope.projectId});
-                $scope.title = '';
-                $scope.description = '';
+                resetNewForm();
             });
         }
     };

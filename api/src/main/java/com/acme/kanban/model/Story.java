@@ -36,6 +36,12 @@ public class Story {
     @Column(name="priority")
     private Integer priority;
 
+    @Column(name="bg_color")
+    private String bgColor;
+
+    @Column(name="fg_color")
+    private String fgColor;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="project_id")
     @JsonIgnoreProperties({"title", "description", "steps", "stories" })
