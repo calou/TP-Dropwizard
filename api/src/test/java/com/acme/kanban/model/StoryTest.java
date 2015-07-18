@@ -18,7 +18,7 @@ public class StoryTest {
     public void serialization() throws IOException {
         final Story story = Story.builder().id(14l).title("This is the new story")
                 .project(Project.builder().id(1234l).build())
-                .step(KanbanStep.builder().id(10l).build())
+                .step(Step.builder().id(10l).build())
                 .build();
         String json = mapper.writeValueAsString(story);
 

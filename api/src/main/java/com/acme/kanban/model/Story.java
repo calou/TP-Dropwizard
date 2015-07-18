@@ -38,5 +38,5 @@ public class Story {
     @ManyToOne
     @JoinColumn(name="step_id")
     @JsonIgnoreProperties({"title", "project", "order" })
-    private KanbanStep step;
+    private Step step;
 }

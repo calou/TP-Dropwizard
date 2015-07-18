@@ -1,10 +1,9 @@
 package com.acme.kanban.repository;
 
-import com.acme.kanban.model.KanbanStep;
+import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
-import org.hibernate.Session;
 import org.junit.Test;
 
 import java.util.List;
@@ -45,9 +44,9 @@ public class ProjectRepositoryTest extends BaseRepositoryTest {
         tx.commit();
 
         org.hibernate.Transaction tx1 = getSession().beginTransaction();
-        KanbanStep s1 = (KanbanStep) getSession().get(KanbanStep.class, 20l);
-        KanbanStep s2 = (KanbanStep) getSession().get(KanbanStep.class, 21l);
-        KanbanStep s3 = (KanbanStep) getSession().get(KanbanStep.class, 22l);
+        Step s1 = (Step) getSession().get(Step.class, 20l);
+        Step s2 = (Step) getSession().get(Step.class, 21l);
+        Step s3 = (Step) getSession().get(Step.class, 22l);
 
         Story story1 = (Story)  getSession().get(Story.class, 200l);
         Story story2 = (Story)  getSession().get(Story.class, 201l);
@@ -69,7 +68,7 @@ public class ProjectRepositoryTest extends BaseRepositoryTest {
         tx.commit();
 
         org.hibernate.Transaction tx1 = getSession().beginTransaction();
-        Long count =  (Long) getSession().createQuery( "SELECT COUNT(*) FROM Project").uniqueResult();
+        Long count =  (Long) getSession().createQuery("SELECT COUNT(*) FROM Project").uniqueResult();
         assertThat(count).isEqualTo(5l);
 
         Project lastProject = getLastProject();

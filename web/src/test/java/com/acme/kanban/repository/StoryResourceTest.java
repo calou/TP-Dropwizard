@@ -2,7 +2,7 @@ package com.acme.kanban.repository;
 
 import com.acme.kanban.dropwizard.KanbanApplication;
 import com.acme.kanban.dropwizard.KanbanConfiguration;
-import com.acme.kanban.model.KanbanStep;
+import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import io.dropwizard.testing.ResourceHelpers;
@@ -17,9 +17,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.FileInputStream;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -61,7 +59,7 @@ public class StoryResourceTest {
     public void create() throws Exception {
         final Story story = Story.builder().title("This is the new story")
                 .project(Project.builder().id(1234l).build())
-                .step(KanbanStep.builder().id(10l).build())
+                .step(Step.builder().id(10l).build())
                 .build();
         Entity<Story> entity = Entity.entity(story, MediaType.APPLICATION_JSON_TYPE);
         final Story persistedStory = client.target("http://localhost:" + RULE.getLocalPort() + "/api/stories").request().post(entity).readEntity(Story.class);
@@ -87,7 +85,7 @@ public class StoryResourceTest {
     public void update() throws Exception {
         final Story story = Story.builder().id(1234l).title("This is the title")
                 .project(Project.builder().id(1234l).build())
-                .step(KanbanStep.builder().id(10l).build())
+                .step(Step.builder().id(10l).build())
                 .build();
         Entity<Story> entity = Entity.entity(story, MediaType.APPLICATION_JSON_TYPE);
         final Story persistedStory = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234/stories/101").request().put(entity).readEntity(Story.class);

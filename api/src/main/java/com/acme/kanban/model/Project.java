@@ -39,7 +39,7 @@ public class Project {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
     @OrderBy("step_order")
     @JsonDeserialize(as=LinkedHashSet.class)
-    private Set<KanbanStep> steps;
+    private Set<Step> steps;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
     @OrderBy("id")

@@ -1,17 +1,14 @@
 package com.acme.kanban.repository;
 
 
-import com.acme.kanban.model.KanbanStep;
+import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
-import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 import java.util.Set;
@@ -39,11 +36,11 @@ public class ProjectRepository extends AbstractDAO<Project> {
     }
 
     public Project create(Project project) {
-        Set<KanbanStep> steps = project.getSteps();
+        Set<Step> steps = project.getSteps();
         if(steps == null || steps.isEmpty()){
-            KanbanStep todoStep = KanbanStep.builder().order(1).title("TODO").project(project).build();
-            KanbanStep developStep = KanbanStep.builder().order(2).title("DEVELOP").project(project).build();
-            KanbanStep doneStep = KanbanStep.builder().order(3).title("DONE").project(project).build();
+            Step todoStep = Step.builder().order(1).title("TODO").project(project).build();
+            Step developStep = Step.builder().order(2).title("DEVELOP").project(project).build();
+            Step doneStep = Step.builder().order(3).title("DONE").project(project).build();
             project.setSteps(Sets.newHashSet(todoStep, developStep,doneStep));
         }
         return persist(project);

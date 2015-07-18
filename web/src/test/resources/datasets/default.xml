@@ -7,15 +7,15 @@
     <PROJECTS id="1237" title="Customer project CP4"/>
 
     <!-- Steps pour le projet 1234 -->
-    <KANBAN_STEPS id="10" title="DEVELOP" STEP_ORDER="2" PROJECT_ID="1234"/> <!-- L'ordre de ce step est supérieur à l'ordre du step 11 -->
-    <KANBAN_STEPS id="11" title="TODO" STEP_ORDER="1" PROJECT_ID="1234"/>
-    <KANBAN_STEPS id="12" title="VALIDATION" STEP_ORDER="3" PROJECT_ID="1234"/>
-    <KANBAN_STEPS id="13" title="DONE" STEP_ORDER="4" PROJECT_ID="1234"/>
+    <STEPS id="10" title="DEVELOP" STEP_ORDER="2" PROJECT_ID="1234"/> <!-- L'ordre de ce step est supérieur à l'ordre du step 11 -->
+    <STEPS id="11" title="TODO" STEP_ORDER="1" PROJECT_ID="1234"/>
+    <STEPS id="12" title="VALIDATION" STEP_ORDER="3" PROJECT_ID="1234"/>
+    <STEPS id="13" title="DONE" STEP_ORDER="4" PROJECT_ID="1234"/>
 
     <!-- Steps pour le projet 1235 -->
-    <KANBAN_STEPS id="20" title="DEVELOP" STEP_ORDER="2" PROJECT_ID="1235"/><!-- L'ordre de ce step est supérieur à l'ordre du step 21 -->
-    <KANBAN_STEPS id="21" title="TODO" STEP_ORDER="1" PROJECT_ID="1235"/>
-    <KANBAN_STEPS id="22" title="DONE" STEP_ORDER="3" PROJECT_ID="1235"/>
+    <STEPS id="20" title="DEVELOP" STEP_ORDER="2" PROJECT_ID="1235"/><!-- L'ordre de ce step est supérieur à l'ordre du step 21 -->
+    <STEPS id="21" title="TODO" STEP_ORDER="1" PROJECT_ID="1235"/>
+    <STEPS id="22" title="DONE" STEP_ORDER="3" PROJECT_ID="1235"/>
 
     <!-- Story pour le projet 1234 -->
     <STORIES id="100" title="Get things done" description="Better start now" project_id="1234" step_id="10" />

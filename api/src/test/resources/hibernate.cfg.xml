@@ -13,7 +13,7 @@
         <property name="hibernate.current_session_context_class">thread</property>
 
         <mapping class="com.acme.kanban.model.Project" />
-        <mapping class="com.acme.kanban.model.KanbanStep" />
+        <mapping class="com.acme.kanban.model.Step" />
         <mapping class="com.acme.kanban.model.Story" />
     </session-factory>
 </hibernate-configuration>

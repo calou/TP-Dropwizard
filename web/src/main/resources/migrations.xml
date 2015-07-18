@@ -19,7 +19,7 @@
             </column>
         </createTable>
 
-        <createTable tableName="kanban_steps">
+        <createTable tableName="steps">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -35,8 +35,8 @@
         </createTable>
 
         <addForeignKeyConstraint baseColumnNames="project_id"
-                                 baseTableName="kanban_steps"
-                                 constraintName="fk_kanban_steps_project"
+                                 baseTableName="steps"
+                                 constraintName="fk_steps_project"
                                  referencedColumnNames="id"
                                  referencedTableName="projects"/>
 
@@ -67,9 +67,9 @@
 
         <addForeignKeyConstraint baseColumnNames="step_id"
                                  baseTableName="stories"
-                                 constraintName="fk_stories_kanban_steps"
+                                 constraintName="fk_stories_steps"
                                  referencedColumnNames="id"
-                                 referencedTableName="kanban_steps"/>
+                                 referencedTableName="steps"/>
 
     </changeSet>
 

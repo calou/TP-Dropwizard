@@ -1,6 +1,6 @@
 package com.acme.kanban.repository;
 
-import com.acme.kanban.model.KanbanStep;
+import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
@@ -41,7 +41,7 @@ public class StoryRepositoryTest extends BaseRepositoryTest {
     @Test
     public void create(){
         Project project = (Project) getSession().get(Project.class, 1234l);
-        KanbanStep step = project.getSteps().iterator().next();
+        Step step = project.getSteps().iterator().next();
 
         Story newStory = Story.builder().title("Awesome new story").description("...").project(project).step(step).build();
         repository.create(newStory);
@@ -86,7 +86,7 @@ public class StoryRepositoryTest extends BaseRepositoryTest {
 
     @Test
     public void update(){
-        KanbanStep step = (KanbanStep) getSession().get(KanbanStep.class, 22l);
+        Step step = (Step) getSession().get(Step.class, 22l);
 
         Story originalStory = repository.findById(200l).get();
         originalStory.setTitle("this is the new title");

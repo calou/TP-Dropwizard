@@ -3,7 +3,6 @@ package com.acme.kanban.dropwizard;
 import com.acme.kanban.repository.ProjectRepository;
 import com.acme.kanban.repository.StoryRepository;
 import com.acme.kanban.resource.ProjectResource;
-import com.acme.kanban.resource.ProjectStoriesResource;
 import com.acme.kanban.resource.StoryResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -47,7 +46,6 @@ public class KanbanApplication extends Application<KanbanConfiguration>{
 
         environment.jersey().register(new ProjectResource(projectRepository));
         environment.jersey().register(new StoryResource(storyRepository));
-        environment.jersey().register(new ProjectStoriesResource(storyRepository, projectRepository));
     }
 
     public static void main(String[] args) throws Exception {

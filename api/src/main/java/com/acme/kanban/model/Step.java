@@ -6,11 +6,11 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "kanban_steps")
+@Table(name = "steps")
 @NamedQueries({
         @NamedQuery(
                 name = "KanbanSteps.findAllByProject",
-                query = "SELECT t FROM KanbanStep t WHERE t.project.id = :project_id"
+                query = "SELECT t FROM Step t WHERE t.project.id = :project_id"
         )
 })
 @Getter
@@ -19,7 +19,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class KanbanStep {
+public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
