@@ -4,7 +4,9 @@ import com.acme.kanban.model.KanbanStep;
 import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.acme.kanban.repository.ProjectRepository;
+import com.acme.kanban.repository.StoryRepository;
 import com.acme.kanban.resource.ProjectResource;
+import com.acme.kanban.resource.StoryResource;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
@@ -13,6 +15,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import org.hibernate.SessionFactory;
 
 
 public class KanbanApplication extends Application<KanbanConfiguration>{
@@ -39,8 +42,12 @@ public class KanbanApplication extends Application<KanbanConfiguration>{
 
     @Override
     public void run(KanbanConfiguration kanbanConfiguration, Environment environment) throws Exception {
-        final ProjectRepository dao = new ProjectRepository(hibernate.getSessionFactory());
-        environment.jersey().register(new ProjectResource(dao));
+        final SessionFactory sessionFactory = hibernate.getSessionFactory();
+        final ProjectRepository projectRepository = new ProjectRepository(sessionFactory);
+        final StoryRepository storyRepository = new StoryRepository(sessionFactory);
+
+        environment.jersey().register(new ProjectResource(projectRepository));
+        environment.jersey().register(new StoryResource(storyRepository, projectRepository));
     }
 
     public static void main(String[] args) throws Exception {

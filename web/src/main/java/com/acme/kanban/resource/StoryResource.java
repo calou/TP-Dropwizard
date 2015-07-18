@@ -1,5 +1,6 @@
 package com.acme.kanban.resource;
 
+import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.acme.kanban.repository.ProjectRepository;
 import com.acme.kanban.repository.StoryRepository;
@@ -7,6 +8,7 @@ import com.acme.kanban.repository.StoryRepository;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.hibernate.ObjectNotFoundException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,14 +30,20 @@ public class StoryResource {
     @Timed
     @UnitOfWork
     public List<Story> list(@PathParam("projectId") Long projectId){
-        return repository.findAllByProjectId(projectId);
+        try {
+            return repository.findAllByProjectId(projectId);
+        }catch (ObjectNotFoundException e){
+            throw new NotFoundException(e.getMessage());
+        }
     }
 
 
     @POST
     @UnitOfWork
-    public Story create(@PathParam("projectId") Long projectId, Story todo){
-        return repository.create(todo);
+    public Story create(@PathParam("projectId") Long projectId, Story story){
+        Project project = projectRepository.findReferenceById(projectId);
+        story.setProject(project);
+        return repository.create(story);
     }
 
     @GET
@@ -51,10 +59,12 @@ public class StoryResource {
     @Timed
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
-    public Story update(@PathParam("id") Long id, Story project){
-        project.setId(id);
-        final Optional<Story> optional = repository.update(project);
-        throwExceptionIfAbsent(optional, project.getId());
+    public Story update(@PathParam("projectId") Long projectId, @PathParam("id") Long id, Story story){
+        Project project = projectRepository.findReferenceById(projectId);
+        story.setId(id);
+        story.setProject(project);
+        final Optional<Story> optional = repository.update(story);
+        throwExceptionIfAbsent(optional, story.getId());
         return optional.get();
     }
 
@@ -71,8 +81,8 @@ public class StoryResource {
     private Story findSafely(Long id) {
         Optional<Story> optional = repository.findById(id);
         throwExceptionIfAbsent(optional, id);
-        Story todo = optional.get();
-        return todo;
+        Story story = optional.get();
+        return story;
     }
 
     private void throwExceptionIfAbsent(Optional<Story> optional, Long id) {

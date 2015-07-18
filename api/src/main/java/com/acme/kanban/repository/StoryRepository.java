@@ -1,12 +1,11 @@
 package com.acme.kanban.repository;
 
 
+import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import io.dropwizard.hibernate.AbstractDAO;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -19,7 +18,13 @@ public class StoryRepository extends AbstractDAO<Story> {
 
     public List<Story> findAllByProjectId(Long projectId) {
         Query query = currentSession().getNamedQuery("Story.findAllByProject").setLong("project_id", projectId);
-        return list(query);
+        final List<Story> stories = list(query);
+        // Si la liste des stories est vide, on vérifie que le project existe.
+        // Si le project n'existe pas alors on lève une exception
+        if(stories.isEmpty()){
+            checkProjectExist(projectId);
+        }
+        return stories;
     }
 
     public Optional<Story> findById(Long id) {
@@ -27,11 +32,14 @@ public class StoryRepository extends AbstractDAO<Story> {
     }
 
     public Story create(Story story) {
+        // On vérifie que le project existe
+        checkProjectExist(story.getProject().getId());
         return persist(story);
     }
 
     public Optional<Story> update(Story story) {
-        // On teste si l'entité existe
+        // On vérifie que l'entité existe, si ce n'est pas le cas
+        // alors on retourne Optional.absent
         if (!checkEntityExists(story.getId())) {
             return Optional.absent();
         }
@@ -51,9 +59,12 @@ public class StoryRepository extends AbstractDAO<Story> {
     }
 
     public final boolean checkEntityExists(Long id) throws HibernateException {
-        return this.currentSession().createCriteria(Story.class)
-                .add(Restrictions.eq("id", id))
-                .setProjection(Projections.property("id"))
-                .uniqueResult() == null ? false : true;
+        return RepositoryHelper.checkEntityExist(this.currentSession(), Story.class, id);
+    }
+
+    private void checkProjectExist(Long projectId) {
+        if (!RepositoryHelper.checkEntityExist(this.currentSession(), Project.class, projectId)) {
+            throw new ObjectNotFoundException(projectId, "Project");
+        }
     }
 }

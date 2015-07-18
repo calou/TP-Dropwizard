@@ -30,8 +30,8 @@ public class ProjectResource {
 
     @POST
     @UnitOfWork
-    public Project create(Project todo){
-        return repository.create(todo);
+    public Project create(Project project){
+        return repository.create(project);
     }
 
     @GET
@@ -67,13 +67,13 @@ public class ProjectResource {
     private Project findSafely(@PathParam("id") Long id) {
         Optional<Project> optional = repository.findByIdWithStepsAndStories(id);
         throwExceptionIfAbsent(optional, id);
-        Project todo = optional.get();
-        return todo;
+        Project project = optional.get();
+        return project;
     }
 
     private void throwExceptionIfAbsent(Optional<Project> optional, Long id) {
         if(!optional.isPresent()){
-            throw new NotFoundException("Todo with id " + id);
+            throw new NotFoundException("Project with id " + id);
         }
     }
 }

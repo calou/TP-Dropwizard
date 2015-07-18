@@ -3,6 +3,7 @@ package com.acme.kanban.repository;
 
 import com.acme.kanban.model.KanbanStep;
 import com.acme.kanban.model.Project;
+import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import io.dropwizard.hibernate.AbstractDAO;
@@ -26,6 +27,10 @@ public class ProjectRepository extends AbstractDAO<Project> {
 
     public Optional<Project> findById(Long id) {
         return Optional.fromNullable(get(id));
+    }
+
+    public Project findReferenceById(Long id) {
+        return (Project) currentSession().load(Project.class, id);
     }
 
     public Optional<Project> findByIdWithStepsAndStories(Long id) {
@@ -65,9 +70,6 @@ public class ProjectRepository extends AbstractDAO<Project> {
     }
 
     public final boolean checkEntityExists(Long id) throws HibernateException {
-        return this.currentSession().createCriteria(Project.class)
-                .add(Restrictions.eq("id", id))
-                .setProjection(Projections.property("id"))
-                .uniqueResult() == null ? false : true;
+        return RepositoryHelper.checkEntityExist(this.currentSession(), Project.class, id);
     }
 }

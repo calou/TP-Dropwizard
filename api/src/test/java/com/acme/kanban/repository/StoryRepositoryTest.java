@@ -4,6 +4,7 @@ import com.acme.kanban.model.KanbanStep;
 import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
+import org.hibernate.ObjectNotFoundException;
 import org.hibernate.Session;
 import org.junit.Test;
 
@@ -32,12 +33,17 @@ public class StoryRepositoryTest extends BaseRepositoryTest {
         assertThat(stories).hasSize(4).containsExactly(story1, story2, story3, story4);
     }
 
+    @Test(expected = ObjectNotFoundException.class)
+    public void findAllByProjectIdWithUnavailableProject(){
+        repository.findAllByProjectId(9999l);
+    }
+
     @Test
     public void create(){
         Project project = (Project) getSession().get(Project.class, 1234l);
         KanbanStep step = project.getSteps().iterator().next();
 
-        Story newStory = Story.builder().title("Awesome new project").description("...").project(project).step(step).build();
+        Story newStory = Story.builder().title("Awesome new story").description("...").project(project).step(step).build();
         repository.create(newStory);
 
         // On ferme la transaction pour s'assurer que le projet est bien créé
@@ -53,6 +59,13 @@ public class StoryRepositoryTest extends BaseRepositoryTest {
         tx1.commit();
     }
 
+    @Test(expected = ObjectNotFoundException.class)
+    public void createWithNonExistingProject(){
+        Project project = Project.builder().id(9999l).build();
+
+        Story newStory = Story.builder().title("Story with non-existing project").description("...").project(project).build();
+        repository.create(newStory);
+    }
 
     private void assertStoryCountIs( long expected) {
         Long count =  (Long) getSession().createQuery("SELECT COUNT(*) FROM Story").uniqueResult();

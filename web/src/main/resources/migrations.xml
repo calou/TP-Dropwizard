@@ -55,7 +55,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="step_id" type="bigint">
-                <constraints nullable="false"/>
+                <constraints nullable="true"/>
             </column>
         </createTable>
 

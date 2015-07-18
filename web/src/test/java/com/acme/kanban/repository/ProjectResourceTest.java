@@ -92,17 +92,17 @@ public class ProjectResourceTest {
 
     @Test
     public void update() throws Exception {
-        final Project wish = Project.builder().id(1234l).title("This is the title").build();
-        Entity<Project> entity = Entity.entity(wish, MediaType.APPLICATION_JSON_TYPE);
+        final Project project = Project.builder().id(1234l).title("This is the title").build();
+        Entity<Project> entity = Entity.entity(project, MediaType.APPLICATION_JSON_TYPE);
         final Project persistedProject = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234").request().put(entity).readEntity(Project.class);
         assertThat(persistedProject.getId()).isEqualTo(1234l);
-        assertThat(persistedProject.getTitle()).isEqualTo(wish.getTitle());
+        assertThat(persistedProject.getTitle()).isEqualTo(project.getTitle());
     }
 
     @Test
     public void updateUnavailable() throws Exception {
-        final Project todo = Project.builder().id(9999l).title("This is the title").build();
-        Entity<Project> entity = Entity.entity(todo, MediaType.APPLICATION_JSON_TYPE);
+        final Project project = Project.builder().id(9999l).title("This is the title").build();
+        Entity<Project> entity = Entity.entity(project, MediaType.APPLICATION_JSON_TYPE);
         final Response response = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/9999").request().put(entity);
         assertThat(response.getStatus()).isEqualTo(404);
     }

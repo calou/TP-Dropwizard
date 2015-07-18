@@ -21,6 +21,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <jersey.version>2.17</jersey.version>
         <h2.version>1.4.187</h2.version>
+        <postgresql.version>9.4-1201-jdbc41</postgresql.version>
         <dropwizard.version>0.8.1</dropwizard.version>
         <dbunit.version>2.5.1</dbunit.version>
     </properties>
@@ -86,6 +87,12 @@
             </dependency>
 
             <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>1.16.4</version>
@@ -98,12 +105,14 @@
                 <version>2.0.0</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>io.dropwizard</groupId>
                 <artifactId>dropwizard-testing</artifactId>
                 <version>${dropwizard.version}</version>
                 <scope>test</scope>
             </dependency>
+
             <dependency>
                 <groupId>org.glassfish.jersey.test-framework.providers</groupId>
                 <artifactId>jersey-test-framework-provider-inmemory</artifactId>

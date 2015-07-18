@@ -1,0 +1,26 @@
+database:
+  driverClass: org.postgresql.Driver
+  user: kanban
+  password: kanban
+  url: jdbc:postgresql://localhost:5432/kanban
+
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  maxWaitForConnection: 1s
+  # Health check
+  validationQuery: "SELECT 1"
+  minSize: 8
+  maxSize: 32
+  checkConnectionWhileIdle: false
+
+
+server:
+  rootPath: '/api/*'
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
