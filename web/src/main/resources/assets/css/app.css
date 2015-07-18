@@ -1,3 +1,11 @@
 .panel-heading a.glyphicon.glyphicon-remove-circle {
     font-size: 21px;
 }
+
+.post-it {
+    background: #5F5F5F;
+    color: #FFFFFF;
+    font-size: 14px;
+    padding: 15px 20px;
+    margin: 5px 0;
+}

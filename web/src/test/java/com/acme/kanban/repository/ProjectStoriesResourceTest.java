@@ -23,7 +23,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class StoryResourceTest {
+public class ProjectStoriesResourceTest {
     private static final String CONFIG_PATH = ResourceHelpers.resourceFilePath("configuration-test.yml");
 
     private static IDatabaseTester DATABASE_TESTER;
@@ -56,20 +56,28 @@ public class StoryResourceTest {
         DATABASE_TESTER.onTearDown();
     }
 
+    @Test
+    public void list() throws Exception {
+        final List<Story> stories = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234/stories").request().get().readEntity(List.class);
+        assertThat(stories).hasSize(4);
+    }
+
+    @Test
+    public void listUnavailable() throws Exception {
+        final Response response = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/9999/stories").request().get();
+        assertThat(response.getStatus()).isEqualTo(404);
+    }
+
 
     @Test
     public void create() throws Exception {
-        final Story story = Story.builder().title("This is the new story")
-                .project(Project.builder().id(1234l).build())
-                .step(KanbanStep.builder().id(10l).build())
-                .build();
+        final Story story = Story.builder().title("This is the new story").build();
         Entity<Story> entity = Entity.entity(story, MediaType.APPLICATION_JSON_TYPE);
-        final Story persistedStory = client.target("http://localhost:" + RULE.getLocalPort() + "/api/stories").request().post(entity).readEntity(Story.class);
+        final Story persistedStory = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234/stories").request().post(entity).readEntity(Story.class);
         assertThat(persistedStory).isEqualToIgnoringNullFields(story);
         assertThat(persistedStory.getId()).isNotNull();
     }
 
-    /*
     @Test
     public void get() throws Exception {
         final Story persistedStory = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234/stories/101").request().get().readEntity(Story.class);
@@ -102,5 +110,5 @@ public class StoryResourceTest {
         final Response response = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234/9999").request().put(entity);
         assertThat(response.getStatus()).isEqualTo(404);
     }
-    */
+
 }

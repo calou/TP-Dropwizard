@@ -1,9 +1,6 @@
 package com.acme.kanban.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
@@ -35,13 +32,11 @@ public class Story {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="project_id")
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIgnoreProperties({"title", "description", "steps", "stories" })
     private Project project;
 
     @ManyToOne
     @JoinColumn(name="step_id")
-    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-    @JsonIdentityReference(alwaysAsId=true)
+    @JsonIgnoreProperties({"title", "project", "order" })
     private KanbanStep step;
 }

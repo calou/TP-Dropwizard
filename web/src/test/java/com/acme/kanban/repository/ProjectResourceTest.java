@@ -77,7 +77,8 @@ public class ProjectResourceTest {
         assertThat(p1.getSteps()).extracting("id").containsExactly(11l, 10l, 12l, 13l);
         assertThat(p1.getSteps()).extracting("title").containsExactly("TODO", "DEVELOP", "VALIDATION", "DONE");
 
-        final Project p2 = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1235").request().get().readEntity(Project.class);
+        final Response response = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1235").request().get();
+        final Project p2 = response.readEntity(Project.class);
         assertThat(p2.getId()).isEqualTo(1235);
         assertThat(p2.getTitle()).isEqualTo("Project F2");
         assertThat(p2.getSteps()).extracting("id").containsExactly(21l, 20l, 22l);

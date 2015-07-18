@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <logger name="io.dropwizard" level="ERROR" />
+    <logger name="io.dropwizard" level="DEBUG" />
     <logger name="org.eclipse.jetty" level="ERROR" />
 
     <root level="DEBUG">

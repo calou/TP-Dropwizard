@@ -7,6 +7,10 @@ database:
   minSize: 8
   maxSize: 32
 
+  properties:
+    charSet: UTF-8
+    hibernate.dialect: org.hibernate.dialect.H2Dialect
+
 
 server:
   rootPath: '/api/*'
