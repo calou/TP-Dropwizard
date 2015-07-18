@@ -103,6 +103,12 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
 });
 
 
+kanbanApp.directive('postit', function() {
+    return {
+        templateUrl: 'directives/post-it.html'
+    };
+});
+
 kanbanApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
