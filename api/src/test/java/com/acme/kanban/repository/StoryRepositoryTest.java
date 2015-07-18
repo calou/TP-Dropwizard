@@ -59,6 +59,41 @@ public class StoryRepositoryTest extends BaseRepositoryTest {
         tx1.commit();
     }
 
+    @Test
+    public void createShouldSetNumberIfNotProvided(){
+        Project project = (Project) getSession().get(Project.class, 1234l);
+        Step step = project.getSteps().iterator().next();
+
+        Story newStory = Story.builder().title("Awesome new story").description("...").project(project).step(step).build();
+        Story savedStory = repository.create(newStory);
+
+        assertThat(savedStory.getNumber()).isEqualTo(5);
+    }
+
+    @Test
+    public void createShouldSetNumberIfNotProvidedEvenNoneStoryAlreadyExist(){
+        // On supprime toutes les stories
+        getSession().createQuery("DELETE FROM Story").executeUpdate();
+        Project project = (Project) getSession().get(Project.class, 1234l);
+        Step step = project.getSteps().iterator().next();
+
+        Story newStory = Story.builder().title("Awesome new story").description("...").project(project).step(step).build();
+        Story savedStory = repository.create(newStory);
+
+        assertThat(savedStory.getNumber()).isEqualTo(1);
+    }
+
+    @Test
+    public void createShouldNotChangeNumberIfProvided(){
+        Project project = (Project) getSession().get(Project.class, 1234l);
+        Step step = project.getSteps().iterator().next();
+
+        Story newStory = Story.builder().number(12).title("Awesome new story").description("...").project(project).step(step).build();
+        Story savedStory = repository.create(newStory);
+
+        assertThat(savedStory.getNumber()).isEqualTo(12);
+    }
+
     @Test(expected = ObjectNotFoundException.class)
     public void createWithNonExistingProject(){
         Project project = Project.builder().id(9999l).build();

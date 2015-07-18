@@ -11,7 +11,7 @@
                 <div class="row">
                     <div ng-repeat="story in project.stories | filter: {step: null}" class="ng-cloak col-md-6">
                         <div class="post-it" ng-dblclick="move(story)">
-                            {{story.title}}
+                            <b>#{{story.number}}</b>{{story.title}}
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <div class="row">
                     <div ng-repeat="story in project.stories | filter: {step: {id: project_step.id}}" class="ng-cloak col-md-6">
                         <div class="post-it" ng-dblclick="move(story)">
-                            {{story.title}}
+                            <b>#{{story.number}}</b>{{story.title}}
                         </div>
                     </div>
                 </div>

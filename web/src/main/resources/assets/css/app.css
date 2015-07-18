@@ -17,6 +17,11 @@
     border-radius: 2px;
     cursor:pointer;
 }
+.post-it b {
+    font-size: 120%;
+    margin-right: 8px;
+}
+
 .red {
     color: #CC0000;
 }

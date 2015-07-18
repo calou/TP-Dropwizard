@@ -33,7 +33,20 @@ public class StoryRepository extends AbstractDAO<Story> {
 
     public Story create(Story story) {
         // On vérifie que le project existe
-        checkProjectExist(story.getProject().getId());
+        final Long projectId = story.getProject().getId();
+        checkProjectExist(projectId);
+
+        // Si le numéro de la story n'est pas défini alors on attribue
+        // à la story le numéro directement supérieur au max des numéros des
+        // stories du projet
+        if(story.getNumber() == null){
+            final String queryAsString = "SELECT COALESCE(MAX(s.number), 0) + 1 FROM Story s WHERE s.project.id=:pid";
+            final Query query = currentSession().createQuery(queryAsString);
+            query.setLong("pid", projectId);
+            Integer number = (Integer) query.uniqueResult();
+            story.setNumber(number);
+        }
+
         return persist(story);
     }
 

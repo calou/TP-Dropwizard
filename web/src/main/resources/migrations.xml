@@ -73,4 +73,11 @@
 
     </changeSet>
 
+    <changeSet id="2" author="sgr">
+        <addColumn tableName="stories">
+            <column name="number" type="int" defaultValue="1"/>
+            <column name="priority" type="int" defaultValue="2"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>
