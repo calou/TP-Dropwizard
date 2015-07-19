@@ -7,6 +7,12 @@
     color:#FFFFFF;
 }
 
+.panel-green > .panel-heading {
+    background-color: #99ff99;
+    border-color: transparent;
+    color: #333333;
+}
+
 .post-it {
     background: #E9E74A;
     color: #333333;
@@ -17,9 +23,18 @@
     border-radius: 2px;
     cursor:pointer;
 }
+
 .post-it b {
     font-size: 120%;
     margin-right: 8px;
+}
+
+.post-it .info {
+    color: inherit;
+    position:relative;
+    top:-10px;
+    left: 10px;
+    font-size:16px;
 }
 
 .red {

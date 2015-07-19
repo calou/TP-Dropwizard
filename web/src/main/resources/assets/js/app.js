@@ -44,7 +44,7 @@ kanbanApp.controller('ProjectListController', function($scope, Project) {
 kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, Project, Story) {
     $scope.projectId = $routeParams.projectId;
     $scope.project = Project.get({projectId:$scope.projectId});
-
+    $scope.storyForDetails = {}
     function resetNewForm(){
         $scope.title = '';
         $scope.description = '';
@@ -100,12 +100,23 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
             });
         }
     };
+
+    $scope.showDetails = function(story){
+        $scope.storyForDetails = story;
+        console.log(story);
+    };
 });
 
 
 kanbanApp.directive('postit', function() {
     return {
-        templateUrl: 'directives/post-it.html'
+        restrict: 'AE',
+        replace: 'true',
+        templateUrl: 'directives/post-it.html',
+        scope: {
+            story: "=",
+            onClick: '&'
+        }
     };
 });
 

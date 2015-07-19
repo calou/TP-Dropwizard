@@ -1,3 +1,4 @@
 <div class="post-it" ng-dblclick="move(story)" style="color:{{story.fgColor}};background-color:{{story.bgColor}};">
+    <a class="fa fa-info-circle pull-right info" data-toggle="modal" data-target="#storyModal" ng-click="onClick({$event: $event})"></a>
     <b>#{{story.number}}</b>{{story.title}}
 </div>
