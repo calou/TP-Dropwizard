@@ -51,6 +51,7 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
         $scope.priority = 2;
         $scope.bgColor="#E9E74A";
         $scope.fgColor="#CCCCCC";
+        $scope.points = 1;
     }
     resetNewForm();
     $scope.createStory = function(){
@@ -62,6 +63,7 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
             story.priority = $scope.priority;
             story.bgColor = $scope.bgColor;
             story.fgColor = $scope.fgColor;
+            story.points = $scope.points;
             story.$save().then(function(res)  {
                 $scope.project = Project.get({projectId:$scope.projectId});
                 resetNewForm();

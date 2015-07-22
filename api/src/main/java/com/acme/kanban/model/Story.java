@@ -30,6 +30,9 @@ public class Story extends BaseModel {
     @Column(name="description", columnDefinition="TEXT")
     private String description;
 
+    @Column(name="points")
+    private Integer points;
+
     @Column(name="number")
     private Integer number;
 

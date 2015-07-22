@@ -91,4 +91,10 @@
         <dropDefaultValue tableName="stories" columnName="fg_color" columnDataType="varchar(9)" />
         <addDefaultValue tableName="stories" columnName="fg_color" columnDataType="varchar(9)" defaultValue="#333333" />
     </changeSet>
+
+    <changeSet id="5" author="sgr">
+        <addColumn tableName="stories">
+            <column name="points" type="smallint"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
