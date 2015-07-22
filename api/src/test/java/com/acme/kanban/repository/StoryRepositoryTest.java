@@ -1,7 +1,7 @@
 package com.acme.kanban.repository;
 
-import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
+import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import org.hibernate.ObjectNotFoundException;
@@ -152,7 +152,6 @@ public class StoryRepositoryTest extends BaseRepositoryTest {
 
         tx.commit();
 
-        Session session = getSession();
         org.hibernate.Transaction tx1 = beginTransaction();
         assertStoryCountIs(6l);
         tx1.commit();

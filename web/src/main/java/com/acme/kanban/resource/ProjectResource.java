@@ -67,8 +67,7 @@ public class ProjectResource {
     private Project findSafely(@PathParam("id") Long id) {
         Optional<Project> optional = repository.findByIdWithStepsAndStories(id);
         throwExceptionIfAbsent(optional, id);
-        Project project = optional.get();
-        return project;
+        return optional.get();
     }
 
     private void throwExceptionIfAbsent(Optional<Project> optional, Long id) {

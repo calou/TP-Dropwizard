@@ -1,8 +1,8 @@
 package com.acme.kanban.repository;
 
 
-import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
+import com.acme.kanban.model.Step;
 import com.google.common.base.Optional;
 import com.google.common.collect.Sets;
 import io.dropwizard.hibernate.AbstractDAO;
@@ -66,7 +66,7 @@ public class ProjectRepository extends AbstractDAO<Project> {
         return optional;
     }
 
-    public final boolean checkEntityExists(Long id) throws HibernateException {
-        return RepositoryHelper.checkEntityExist(this.currentSession(), Project.class, id);
+    private final boolean checkEntityExists(Long id) throws HibernateException {
+        return RepositoryHelper.checkEntityExists(this.currentSession(), Project.class, id);
     }
 }

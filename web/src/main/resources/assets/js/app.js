@@ -71,7 +71,7 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
     $scope.move = function(s){
         var nextStep;
         var storyStep = s.step;
-
+        s.moving = true;
         if(storyStep == undefined){
             nextStep = $scope.project.steps[0];
         }else{
@@ -94,11 +94,45 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
 
         if(nextStep != undefined && nextStep != storyStep){
             var story = new Story(s);
-            story.step = nextStep;
+            story.step = { id: nextStep.id };
             story.$update().then(function(){
                 s.step = nextStep;
+                s.moving = false;
             });
         }
+    };
+
+    $scope.moveBackward = function(s){
+        var prevStep;
+        var storyStep = s.step;
+        s.moving = true;
+        // On détermine le premier step dont l'ordre est supérieur à storyStep
+        for(var i in $scope.project.steps){
+            // Parcours depuis le dernier élément
+            var si = $scope.project.steps[$scope.project.steps.length - i - 1];
+
+            // Si l'ordre du step n'est pas définie...
+            if(storyStep.order == undefined && storyStep.id == si.id){
+                storyStep.order = si.order;
+            }
+            // On choisit le premier step dont l'ordre est plus grand que
+            // celui du step courant.
+            if(storyStep.order > si.order){
+                prevStep = si;
+            }
+        }
+        if(prevStep){
+            story.step = { id: prevStep.id };
+        } else {
+            prevStep = null;
+        }
+        var story = new Story(s);
+
+
+        story.$update().then(function(){
+            s.step = prevStep;
+            s.moving = false;
+        });
     };
 
     $scope.showDetails = function(story){
@@ -115,7 +149,9 @@ kanbanApp.directive('postit', function() {
         templateUrl: 'directives/post-it.html',
         scope: {
             story: "=",
-            onClick: '&'
+            onDetails: '&',
+            onMove: '&',
+            onMoveBackward: '&'
         }
     };
 });

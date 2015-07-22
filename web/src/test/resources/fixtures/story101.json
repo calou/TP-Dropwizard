@@ -1,0 +1,11 @@
+{
+  "id": 101,
+  "title": "This is the title",
+  "project": {
+    "id": 1234
+  },
+  "step": {
+    "id": 10
+  },
+  "moving": true
+}

@@ -11,8 +11,11 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class StoryTest {
+    public static final TypeReference<HashMap<String, Object>> MAP_TYPE_REFERENCE = new TypeReference<HashMap<String,Object>>() {
+    };
 
     final ObjectMapper mapper = new ObjectMapper();
+
 
     @Test
     public void serialization() throws IOException {
@@ -22,9 +25,7 @@ public class StoryTest {
                 .build();
         String json = mapper.writeValueAsString(story);
 
-        TypeReference<HashMap<String,Object>> typeRef = new TypeReference<HashMap<String,Object>>() {};
-
-        HashMap<String,Object> map = mapper.readValue(json, typeRef);
+        Map<String,Object> map = mapper.readValue(json, MAP_TYPE_REFERENCE);
         assertThat(map.get("id")).isEqualTo(14);
         assertThat(((Map<String,Object>)map.get("project")).get("id")).isEqualTo(1234);
         assertThat(((Map<String,Object>)map.get("step")).get("id")).isEqualTo(10);

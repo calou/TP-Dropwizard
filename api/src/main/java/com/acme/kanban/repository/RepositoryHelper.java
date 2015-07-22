@@ -12,10 +12,11 @@ public final class RepositoryHelper {
      * @param id
      * @return
      */
-    public static boolean checkEntityExist(Session session, Class klass, Long id) {
-        return session.createCriteria(klass)
+    public static boolean checkEntityExists(Session session, Class klass, Long id) {
+        final Object result = session.createCriteria(klass)
                 .add(Restrictions.eq("id", id))
                 .setProjection(Projections.property("id"))
-                .uniqueResult() == null ? false : true;
+                .uniqueResult();
+        return result == null ? false : true;
     }
 }

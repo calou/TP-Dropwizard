@@ -1,6 +1,6 @@
 package com.acme.kanban.model;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,7 +19,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Story {
+public class Story extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,4 +51,5 @@ public class Story {
     @JoinColumn(name="step_id")
     @JsonIgnoreProperties({"title", "project", "order" })
     private Step step;
+
 }

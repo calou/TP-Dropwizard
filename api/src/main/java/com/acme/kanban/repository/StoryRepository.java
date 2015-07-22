@@ -5,9 +5,10 @@ import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import io.dropwizard.hibernate.AbstractDAO;
-import org.hibernate.*;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.HibernateException;
+import org.hibernate.ObjectNotFoundException;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
@@ -71,12 +72,12 @@ public class StoryRepository extends AbstractDAO<Story> {
         return optional;
     }
 
-    public final boolean checkEntityExists(Long id) throws HibernateException {
-        return RepositoryHelper.checkEntityExist(this.currentSession(), Story.class, id);
+    private final boolean checkEntityExists(Long id) throws HibernateException {
+        return RepositoryHelper.checkEntityExists(this.currentSession(), Story.class, id);
     }
 
     private void checkProjectExist(Long projectId) {
-        if (!RepositoryHelper.checkEntityExist(this.currentSession(), Project.class, projectId)) {
+        if (!RepositoryHelper.checkEntityExists(this.currentSession(), Project.class, projectId)) {
             throw new ObjectNotFoundException(projectId, "Project");
         }
     }

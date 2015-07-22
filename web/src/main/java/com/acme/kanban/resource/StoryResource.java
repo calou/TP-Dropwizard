@@ -1,17 +1,13 @@
 package com.acme.kanban.resource;
 
-import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Story;
-import com.acme.kanban.repository.ProjectRepository;
 import com.acme.kanban.repository.StoryRepository;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import io.dropwizard.hibernate.UnitOfWork;
-import org.hibernate.ObjectNotFoundException;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Path("/stories")
 @Produces(MediaType.APPLICATION_JSON)
@@ -61,8 +57,7 @@ public class StoryResource {
     private Story findSafely(Long id) {
         Optional<Story> optional = repository.findById(id);
         throwExceptionIfAbsent(optional, id);
-        Story story = optional.get();
-        return story;
+        return optional.get();
     }
 
     private void throwExceptionIfAbsent(Optional<Story> optional, Long id) {

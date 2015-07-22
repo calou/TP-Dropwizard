@@ -11,7 +11,7 @@
                 <div class="row">
                     <div ng-repeat="story in project.stories | filter: {step: null} | orderBy:['priority','number']"
                          class="ng-cloak col-md-6">
-                        <postit story="story" on-click="showDetails(story)"/>
+                        <postit story="story" on-details="showDetails(story)" on-move="move(story)" on-move-backward="moveBackward(story)"/>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="row">
                     <div ng-repeat="story in project.stories | filter: {step: {id: project_step.id}} | orderBy:['priority','number']"
                          class="ng-cloak col-md-6">
-                        <postit story="story" on-click="showDetails(story)"/>
+                        <postit story="story" on-details="showDetails(story)" on-move="move(story)" on-move-backward="moveBackward(story)"/>
                     </div>
                 </div>
             </div>

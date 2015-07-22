@@ -55,13 +55,13 @@ public class ProjectResourceTest {
     }
 
     @Test
-    public void list() throws Exception {
+    public void list() {
         final List<Project> projects = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects").request().get().readEntity(List.class);
         assertThat(projects).hasSize(4);
     }
 
     @Test
-    public void create() throws Exception {
+    public void create() {
         final Project project = Project.builder().title("This is the title").build();
         Entity<Project> entity = Entity.entity(project, MediaType.APPLICATION_JSON_TYPE);
         final Project persistedProject = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects").request().post(entity).readEntity(Project.class);
@@ -70,7 +70,7 @@ public class ProjectResourceTest {
     }
 
     @Test
-    public void get() throws Exception {
+    public void get() {
         final Project p1 = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234").request().get().readEntity(Project.class);
         assertThat(p1.getId()).isEqualTo(1234);
         assertThat(p1.getTitle()).isEqualTo("Project P1");
@@ -86,13 +86,13 @@ public class ProjectResourceTest {
     }
 
     @Test
-    public void getUnavailable() throws Exception {
+    public void getUnavailable() {
         final Response response = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1").request().get();
         assertThat(response.getStatus()).isEqualTo(404);
     }
 
     @Test
-    public void update() throws Exception {
+    public void update() {
         final Project project = Project.builder().id(1234l).title("This is the title").build();
         Entity<Project> entity = Entity.entity(project, MediaType.APPLICATION_JSON_TYPE);
         final Project persistedProject = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/1234").request().put(entity).readEntity(Project.class);
@@ -101,7 +101,7 @@ public class ProjectResourceTest {
     }
 
     @Test
-    public void updateUnavailable() throws Exception {
+    public void updateUnavailable() {
         final Project project = Project.builder().id(9999l).title("This is the title").build();
         Entity<Project> entity = Entity.entity(project, MediaType.APPLICATION_JSON_TYPE);
         final Response response = client.target("http://localhost:" + RULE.getLocalPort() + "/api/projects/9999").request().put(entity);

@@ -1,7 +1,7 @@
 package com.acme.kanban.repository;
 
-import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Project;
+import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import org.junit.Test;
