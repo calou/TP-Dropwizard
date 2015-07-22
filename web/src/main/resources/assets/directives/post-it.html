@@ -1,13 +1,13 @@
-<div class="post-it" style="color:{{story.fgColor}};background-color:{{story.bgColor}};">
-    <div class="fadein fadeout">
-        <div class="right-arrow" ng-click="onMove({$event: $event})">
-            <a class="fa fa-arrow-circle-right arrow"></a>
-        </div>
-        <div class="left-arrow">
-            <a class="fa fa-arrow-circle-left arrow" ng-click="onMoveBackward({$event: $event})"></a>
-        </div>
-        <a class="fa fa-info-circle pull-right info" data-toggle="modal" data-target="#storyModal"
-           ng-click="onClick({$event: $event})"></a>
-        <b>#{{story.number}}</b>{{story.title}}
+<div class="post-it fadein fadeout" style="color:{{story.fgColor}};background-color:{{story.bgColor}};"
+     ng-show="!story.moving">
+
+    <div class="right-arrow" ng-click="onMove({$event: $event})">
+        <a class="fa fa-arrow-circle-right arrow"></a>
     </div>
+    <div class="left-arrow">
+        <a class="fa fa-arrow-circle-left arrow" ng-click="onMoveBackward({$event: $event})"></a>
+    </div>
+    <a class="fa fa-info-circle pull-right info" data-toggle="modal" data-target="#storyModal"
+       ng-click="onClick({$event: $event})"></a>
+    <b>#{{story.number}}</b>{{story.title}}
 </div>

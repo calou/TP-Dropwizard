@@ -1,4 +1,4 @@
-var kanbanApp = angular.module('kanbanApp', ['ngResource', 'ngRoute']);
+var kanbanApp = angular.module('kanbanApp', ['ngResource', 'ngRoute', 'ngAnimate']);
 
 kanbanApp.factory('Project', ['$resource',
     function($resource){
@@ -69,9 +69,9 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
         }
     };
     $scope.move = function(s){
+        s.moving = true;
         var nextStep;
         var storyStep = s.step;
-        s.moving = true;
         if(storyStep == undefined){
             nextStep = $scope.project.steps[0];
         }else{
@@ -93,8 +93,8 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
         }
 
         if(nextStep != undefined && nextStep != storyStep){
+            s.step = nextStep;
             var story = new Story(s);
-            story.step = { id: nextStep.id };
             story.$update().then(function(){
                 s.step = nextStep;
                 s.moving = false;
@@ -121,13 +121,12 @@ kanbanApp.controller('ProjectDetailsController', function($scope, $routeParams, 
                 prevStep = si;
             }
         }
-        if(prevStep){
-            story.step = { id: prevStep.id };
-        } else {
+        if(!prevStep){
             prevStep = null;
         }
-        var story = new Story(s);
 
+        s.step = prevStep;
+        var story = new Story(s);
 
         story.$update().then(function(){
             s.step = prevStep;
