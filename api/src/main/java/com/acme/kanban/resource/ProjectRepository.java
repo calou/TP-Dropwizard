@@ -1,4 +1,4 @@
-package com.acme.kanban.repository;
+package com.acme.kanban.resource;
 
 
 import com.acme.kanban.model.Project;

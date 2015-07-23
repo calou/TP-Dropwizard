@@ -1,7 +1,8 @@
 package com.acme.kanban.dropwizard;
 
-import com.acme.kanban.repository.ProjectRepository;
-import com.acme.kanban.repository.StoryRepository;
+import com.acme.kanban.interceptor.AuditInterceptor;
+import com.acme.kanban.resource.ProjectRepository;
+import com.acme.kanban.resource.StoryRepository;
 import com.acme.kanban.resource.ProjectResource;
 import com.acme.kanban.resource.StoryResource;
 import io.dropwizard.Application;
@@ -13,6 +14,7 @@ import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.views.ViewBundle;
+import org.hibernate.SessionBuilder;
 import org.hibernate.SessionFactory;
 
 
@@ -41,6 +43,8 @@ public class KanbanApplication extends Application<KanbanConfiguration>{
     @Override
     public void run(KanbanConfiguration kanbanConfiguration, Environment environment) throws Exception {
         final SessionFactory sessionFactory = hibernate.getSessionFactory();
+        SessionBuilder sessionBuilder = sessionFactory.withOptions().interceptor(new AuditInterceptor());
+
         final ProjectRepository projectRepository = new ProjectRepository(sessionFactory);
         final StoryRepository storyRepository = new StoryRepository(sessionFactory);
 

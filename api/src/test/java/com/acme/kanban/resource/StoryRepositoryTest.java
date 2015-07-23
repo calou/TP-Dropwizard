@@ -1,11 +1,10 @@
-package com.acme.kanban.repository;
+package com.acme.kanban.resource;
 
 import com.acme.kanban.model.Project;
 import com.acme.kanban.model.Step;
 import com.acme.kanban.model.Story;
 import com.google.common.base.Optional;
 import org.hibernate.ObjectNotFoundException;
-import org.hibernate.Session;
 import org.junit.Test;
 
 import java.util.List;

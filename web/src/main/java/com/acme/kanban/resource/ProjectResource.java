@@ -1,7 +1,6 @@
 package com.acme.kanban.resource;
 
 import com.acme.kanban.model.Project;
-import com.acme.kanban.repository.ProjectRepository;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import io.dropwizard.hibernate.UnitOfWork;
