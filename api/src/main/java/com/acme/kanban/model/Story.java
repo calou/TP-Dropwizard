@@ -54,5 +54,4 @@ public class Story extends BaseModel {
     @JoinColumn(name="step_id")
     @JsonIgnoreProperties({"title", "project", "order" })
     private Step step;
-
 }

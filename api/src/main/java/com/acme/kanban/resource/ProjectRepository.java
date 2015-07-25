@@ -66,7 +66,7 @@ public class ProjectRepository extends AbstractDAO<Project> {
         return optional;
     }
 
-    private final boolean checkEntityExists(Long id) throws HibernateException {
+    private boolean checkEntityExists(Long id) throws HibernateException {
         return RepositoryHelper.checkEntityExists(this.currentSession(), Project.class, id);
     }
 }

@@ -17,6 +17,6 @@ public final class RepositoryHelper {
                 .add(Restrictions.eq("id", id))
                 .setProjection(Projections.property("id"))
                 .uniqueResult();
-        return result == null ? false : true;
+        return result != null;
     }
 }

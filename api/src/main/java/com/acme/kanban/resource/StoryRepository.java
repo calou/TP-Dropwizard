@@ -72,7 +72,7 @@ public class StoryRepository extends AbstractDAO<Story> {
         return optional;
     }
 
-    private final boolean checkEntityExists(Long id) throws HibernateException {
+    private boolean checkEntityExists(Long id) throws HibernateException {
         return RepositoryHelper.checkEntityExists(this.currentSession(), Story.class, id);
     }
 
