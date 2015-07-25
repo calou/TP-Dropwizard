@@ -1,4 +1,4 @@
-[![alt text](https://travis-ci.org/calou/TP-Dropwizard.svg "Build status")](https://travis-ci.org/calou/TP-Dropwizard)
+![alt text](https://travis-ci.org/calou/TP-Dropwizard.png "Build status")
 
 # Lancement de l'application
 Avant de lancer l'application et quelque soit la méthode choisie, il est nécessaire de créer un package :
