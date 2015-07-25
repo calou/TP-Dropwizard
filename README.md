@@ -1,3 +1,5 @@
+    [![Build Status](https://travis-ci.org/calou/TP-Dropwizard.svg)](https://travis-ci.org/calou/TP-Dropwizard)
+
 # Lancement de l'application
 Avant de lancer l'application et quelque soit la méthode choisie, il est nécessaire de créer un package :
 
