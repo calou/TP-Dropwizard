@@ -18,46 +18,50 @@ class DropwizardSimulation extends Simulation {
 
   val headers_10 = Map("Content-Type" -> """application/json""")
 
-  private val scn: ScenarioBuilder = scenario("Projects")
+  private val createProject: ScenarioBuilder = scenario("Projects")
     .exec(http("Create project first project")
-      .post("/api/projects")
-      .body(StringBody("""{ "title": "The project", "description": "This is the project description" }""")
+    .post("/api/projects")
+    .body(StringBody( """{ "title": "The project", "description": "This is the project description" }""")
     ).check(
       jsonPath("$.id")
         .saveAs("project_1_id")
-    )
-    .asJSON)
+    ).asJSON)
     .exec(http("Get all project")
-      .get("/api/projects"))
+    .get("/api/projects"))
     .pause(100 millisecond)
     .exec(http("Create project second project")
-      .post("/api/projects")
-      .body(StringBody("""{ "title": "The project", "description": "This is the project description" }""")
+    .post("/api/projects")
+    .body(StringBody( """{ "title": "The project", "description": "This is the project description" }""")
     ).check(
       jsonPath("$.id")
-      .saveAs("project_2_id")
+        .saveAs("project_2_id")
     ).asJSON)
     .pause(100 millisecond)
+
+  private val scn: ScenarioBuilder = createProject
+    .repeat(5, "n") {
+    exec(http("Create story ${n} project 1")
+      .post("/api/stories")
+      .body(StringBody( """{ "title": "The story #{n}", "description": "This is the story ${n} description", "project": { "id": ${project_1_id} }}""")
+      ).check(
+        jsonPath("$.id")
+          .saveAs("story_1_id")
+      ).asJSON)
+    }
+    .repeat(5, "n") {
+      exec(http("Create story ${n} project 2")
+        .post("/api/stories")
+        .body(StringBody( """{ "title": "Story ${n}", "description": "This is the story ${n} description", "project": { "id": ${project_2_id}}}""")
+        ).check(
+          jsonPath("$.id")
+            .saveAs("story_1_id")
+        ).asJSON)
+        .pause(100 millisecond)
+    }
     .exec(http("Get project 1")
       .get("/api/projects/${project_1_id}"))
-    .pause(100 millisecond)
-    .exec(http("Create story 1 project 1")
-      .post("/api/stories")
-      .body(StringBody("""{ "title": "The project", "description": "This is the project description", "project": { "id": ${project_1_id} }}""")
-    ).check(
-      jsonPath("$.id")
-      .saveAs("story_1_id")
-    ).asJSON)
     .exec(http("Get project 2")
       .get("/api/projects/${project_2_id}"))
-    .exec(http("Create story 1 project 2")
-    .post("/api/stories")
-    .body(StringBody("""{ "title": "The project", "description": "This is the project description", "project": { "id": ${project_2_id}}}""")
-    ).check(
-      jsonPath("$.id")
-        .saveAs("story_1_id")
-    ).asJSON)
-    .pause(100 millisecond)
     .exec(http("Get unknown project")
       .get("/api/projects/9999").check(status.is(404)))
 

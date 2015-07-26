@@ -24,3 +24,10 @@ server:
   adminConnectors:
     - type: http
       port: 8081
+
+logging:
+  level: WARN
+  loggers:
+    io.dropwizard: INFO
+  appenders:
+    - type: console
