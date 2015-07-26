@@ -15,7 +15,6 @@
         <module>web</module>
     </modules>
 
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -25,7 +24,6 @@
         <dropwizard.version>0.8.1</dropwizard.version>
         <dbunit.version>2.5.1</dbunit.version>
     </properties>
-
 
     <repositories>
         <repository>
@@ -310,6 +308,15 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <profile>
+            <id>gatling</id>
+            <modules>
+                <module>api</module>
+                <module>web</module>
+                <module>gatling</module>
+            </modules>
         </profile>
     </profiles>
 </project>
